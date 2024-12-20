@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
 
-  <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="mental_safe">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
   <title>mental_safe</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- Firebase App Config -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA619ZihCofPwJZmMt5DTicfr2lMpmU5LE",
+      authDomain: "mental-b8fab.firebaseapp.com",
+      projectId: "mental-b8fab",
+      storageBucket: "mental-b8fab.appspot.com",
+      messagingSenderId: "162689021856",
+      appId: "1:162689021856:web:b8fab920bcab8d66fa1057",
+      measurementId: "G-MK2TQ4HGH4"
+    };
+  </script>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js"></script>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+<script>
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  console.log("Firebase initialized!");
+</script>
+<script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

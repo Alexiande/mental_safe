@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mental_safe/services/FirebaseAuth.dart'; // Импортируем AuthService
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,20 +10,27 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final AuthService _authService = AuthService(); // Экземпляр AuthService
 
   String _errorMessage = '';
   bool _isPasswordVisible = false;
 
   Future<void> _login() async {
     try {
-      // Пытаемся войти с использованием email и пароля
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
+      // Пытаемся войти с использованием email и пароля через AuthService
+      User? user = await _authService.signInWithEmailAndPassword(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
       );
-      // После успешного входа переходим на следующий экран (например, на экран главной страницы)
-      Navigator.pushReplacementNamed(context, '/home');
+
+      if (user != null) {
+        // После успешного входа переходим на следующий экран (например, на экран главной страницы)
+        Navigator.pushReplacementNamed(context, '/home');
+      } else {
+        setState(() {
+          _errorMessage = 'Не удалось войти. Пожалуйста, проверьте свои данные.';
+        });
+      }
     } catch (e) {
       setState(() {
         _errorMessage = 'Не удалось войти. Пожалуйста, проверьте свои данные.';
@@ -121,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 10),
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/login');
+                Navigator.pushNamed(context, '/signup');
               },
               child: Text(
                 'Нет аккаунта? Зарегистрируйтесь',
